@@ -1,2 +1,1 @@
-# devops-task-tracker
-Full-stack DevOps project
+# DevOps Task Tracker
