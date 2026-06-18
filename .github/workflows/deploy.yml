@@ -1,0 +1,23 @@
+name: CI
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node
+        used: actions/setup-node@v4
+        with:
+          node-version: 18
+
+     - name: Install backend
+       run: cd backend $$npm install
+
+    - name: Build backend
+       run: echo "No build step needed"
