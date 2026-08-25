@@ -2,22 +2,37 @@ name: CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
 
 jobs:
   build:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
       - name: Setup Node
-        used: actions/setup-node@v4
+        uses: actions/setup-node@v4
         with:
-          node-version: 18
+          node-version: 24
 
-     - name: Install backend
-       run: cd backend $$npm install
+      - name: Install backend dependencies
+        working-directory: backend
+        run: npm ci
 
-    - name: Build backend
-       run: echo "No build step needed"
+      - name: Install frontend dependencies
+        working-directory: frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: frontend
+        run: npm run build
+
+      - name: Build backend Docker image
+        run: docker build -t devops-backend ./backend
+
+      - name: Build frontend Docker image
+        run: docker build -t devops-frontend ./frontend

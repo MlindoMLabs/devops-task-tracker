@@ -1,5 +1,11 @@
-.env
 node_modules/
+.env
+.env.*
+!.env.example
+dist/
 npm-debug.log*
 .DS_Store
-dist/
+
+backend/.env
+frontend/.env
+frontend/.env.*
