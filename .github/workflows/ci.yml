@@ -57,13 +57,13 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Tag frontend image
-        run: docker tag devops-frontend ghcr.io/${{ github.repository_owner }}/devops-frontend:latest
+        run: docker tag devops-frontend ghcr.io/mlindomlabs/devops-frontend:latest
 
       - name: Push frontend image
-        run: docker push ghcr.io/${{ github.repository_owner }}/devops-frontend:latest
+        run: docker push ghcr.io/mlindomlabs/devops-frontend:latest
 
       - name: Tag backend image
-        run: docker tag devops-backend ghcr.io/${{ github.repository_owner }}/devops-backend:latest
+        run: docker tag devops-backend ghcr.io/mlindomlabs/devops-backend:latest
 
       - name: Push backend image
-        run: docker push ghcr.io/${{ github.repository_owner }}/devops-backend:latest
+        run: docker push ghcr.io/mlindomlabs/devops-backend:latest
