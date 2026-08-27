@@ -9,6 +9,20 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use((req, res, next) => {
+  const start = Date.now();
+
+  res.on("finish", () => {
+    const duration = Date.now() - start;
+
+    console.log(
+      `${new Date().toISOString()} ${req.method} ${req.originalUrl} ${res.statusCode} ${duration}ms`
+    );
+  });
+
+  next();
+});
+
 const PORT = process.env.PORT || 3001;
 
 const supabase = createClient(
@@ -22,10 +36,32 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/health", (req, res) => {
-  res.json({
-    status: "healthy"
-  });
+app.get("/health", async (req, res) => {
+  try {
+    const { error } = await supabase
+      .from("tasks")
+      .select("id")
+      .limit(1);
+
+    if (error) {
+      return res.status(503).json({
+        status: "unhealthy",
+        database: "unavailable",
+        error: error.message
+      });
+    }
+
+    res.status(200).json({
+      status: "healthy",
+      database: "connected"
+    });
+  } catch (error) {
+    res.status(503).json({
+      status: "unhealthy",
+      database: "unavailable",
+      error: error.message
+    });
+  }
 });
 
 app.get("/api/test-supabase", async (req, res) => {
