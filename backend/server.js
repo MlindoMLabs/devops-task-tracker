@@ -57,7 +57,7 @@ app.get("/health", async (req, res) => {
       return res.status(503).json({
         status: "unhealthy",
         database: "unavailable",
-        error: error.message
+        error: "Internal server error"
       });
     }
 
@@ -66,10 +66,11 @@ app.get("/health", async (req, res) => {
       database: "connected"
     });
   } catch (error) {
+    console.error("API Error:", error);
     res.status(503).json({
       status: "unhealthy",
       database: "unavailable",
-      error: error.message
+      error: "Internal server error"
     });
   }
 });
@@ -84,7 +85,7 @@ app.get("/api/test-supabase", async (req, res) => {
     if (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: "Internal server error",
       });
     }
 
@@ -94,9 +95,10 @@ app.get("/api/test-supabase", async (req, res) => {
       data,
     });
   } catch (error) {
+    console.error("API Error:", error);
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: "Internal server error",
     });
   }
 });
@@ -111,7 +113,7 @@ app.get("/api/tasks", async (req, res) => {
     if (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: "Internal server error",
       });
     }
 
@@ -120,9 +122,10 @@ app.get("/api/tasks", async (req, res) => {
       data,
     });
   } catch (error) {
+    console.error("API Error:", error);
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: "Internal server error",
     });
   }
 });
@@ -187,7 +190,7 @@ app.post("/api/tasks", validateTask, async (req, res) => {
     if (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: "Internal server error",
       });
     }
 
@@ -197,9 +200,10 @@ app.post("/api/tasks", validateTask, async (req, res) => {
       data,
     });
   } catch (error) {
+    console.error("API Error:", error);
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: "Internal server error",
     });
   }
 });
@@ -223,7 +227,7 @@ app.put("/api/tasks/:id", validateTask, async (req, res) => {
     if (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: "Internal server error",
       });
     }
 
@@ -240,9 +244,10 @@ app.put("/api/tasks/:id", validateTask, async (req, res) => {
       data,
     });
   } catch (error) {
+    console.error("API Error:", error);
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: "Internal server error",
     });
   }
 });
@@ -260,7 +265,7 @@ app.delete("/api/tasks/:id", async (req, res) => {
     if (error) {
       return res.status(500).json({
         success: false,
-        error: error.message,
+        error: "Internal server error",
       });
     }
 
@@ -277,11 +282,23 @@ app.delete("/api/tasks/:id", async (req, res) => {
       data,
     });
   } catch (error) {
+    console.error("API Error:", error);
+
     res.status(500).json({
       success: false,
-      error: error.message,
+      error: "Internal server error",
     });
   }
+});
+
+// Centralized error handler
+app.use((err, req, res, next) => {
+  console.error("API Error:", err);
+
+  res.status(500).json({
+    success: false,
+    error: "Internal server error",
+  });
 });
 
 app.listen(PORT, "0.0.0.0", () => {
