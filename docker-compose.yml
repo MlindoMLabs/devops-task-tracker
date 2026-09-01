@@ -8,6 +8,8 @@ services:
       - "5000:5000"
     env_file:
       - ./backend/.env
+    dns:
+      - 10.0.0.2
     restart: unless-stopped
 
   frontend:

@@ -2,9 +2,12 @@ require("dotenv").config();
 
 const express = require("express");
 const cors = require("cors");
+const helmet = require("helmet");
 const { createClient } = require("@supabase/supabase-js");
 
 const app = express();
+
+app.use(helmet());
 
 app.use(
   cors({
@@ -124,7 +127,41 @@ app.get("/api/tasks", async (req, res) => {
   }
 });
 
-app.post("/api/tasks", async (req, res) => {
+const validateTask = (req, res, next) => {
+  const { title, description, status, priority } = req.body;
+
+  if (!title || typeof title !== "string" || title.trim() === "") {
+    return res.status(400).json({
+      error: "Title is required and must be a non-empty string"
+    });
+  }
+
+  if (description !== undefined && typeof description !== "string") {
+    return res.status(400).json({
+      error: "Description must be a string"
+    });
+  }
+
+  const validStatuses = ["pending", "in-progress", "completed"];
+
+  if (status !== undefined && !validStatuses.includes(status)) {
+    return res.status(400).json({
+      error: "Invalid status"
+    });
+  }
+
+  const validPriorities = ["low", "medium", "high"];
+
+  if (priority !== undefined && !validPriorities.includes(priority)) {
+    return res.status(400).json({
+      error: "Invalid priority"
+    });
+  }
+
+  next();
+};
+
+app.post("/api/tasks", validateTask, async (req, res) => {
   try {
     const { title, description, status, priority } = req.body;
 
@@ -167,7 +204,7 @@ app.post("/api/tasks", async (req, res) => {
   }
 });
 
-app.put("/api/tasks/:id", async (req, res) => {
+app.put("/api/tasks/:id", validateTask, async (req, res) => {
   try {
     const { id } = req.params;
     const { title, description, status, priority } = req.body;
