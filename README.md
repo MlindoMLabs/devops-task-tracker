@@ -1,4 +1,3 @@
-# DevOps Task Tracker
 # DevOps Task Tracker 🚀
 
 A full-stack Task Tracker application built as a hands-on DevOps project. The project demonstrates the complete application lifecycle, including development, containerization, CI/CD, cloud deployment, monitoring, logging, and security.
