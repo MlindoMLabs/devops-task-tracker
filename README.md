@@ -1,49 +1,74 @@
 # DevOps Task Tracker
-Absolutely — here’s a professional LinkedIn post that presents the project as a **real DevOps portfolio project**, while highlighting the technologies and security work you completed.
+# DevOps Task Tracker 🚀
+
+A full-stack Task Tracker application built as a hands-on DevOps project. The project demonstrates the complete application lifecycle, including development, containerization, CI/CD, cloud deployment, monitoring, logging, and security.
+
+## 🌐 Live Demo
+
+🚀 **Application:**  
+https://devops-task-tracker-frontend.onrender.com
+
+💻 **GitHub Repository:**  
+https://github.com/MlindoMLabs/devops-task-tracker
 
 ---
 
-🚀 **DevOps Project Completed — Task Tracker Application**
+## 📌 Project Overview
 
-I’m excited to share that I’ve completed my **DevOps Task Tracker** project! 🎉
+The DevOps Task Tracker is a web-based application that allows users to create, view, update, and delete tasks.
 
-This project was built to put practical DevOps concepts into action — from application development and containerization to CI/CD, cloud deployment, monitoring, and security.
+The main goal of this project was to gain practical experience implementing a complete DevOps workflow from application development through to production deployment and security.
 
-### 🛠️ Technologies & Tools Used
+### Application Features
 
-🔹 **Frontend:** React / Vite
-🔹 **Backend:** Node.js / Express.js
-🔹 **Database & Authentication:** Supabase
-🔹 **Containers:** Docker & Docker Compose
-🔹 **CI/CD:** GitHub Actions
-🔹 **Cloud Deployment:** Render
-🔹 **Version Control:** Git & GitHub
-🔹 **Monitoring & Logging:** Application logs, Docker health checks
-🔹 **Security:** CORS, Helmet, input validation, API error handling and Supabase Row Level Security (RLS)
+- Create tasks
+- View tasks
+- Update tasks
+- Delete tasks
+- Task status management
+- Task priority management
+- REST API
+- Supabase database integration
+- React frontend
+- Node.js/Express backend
 
-### 🔐 Security Improvements
+---
 
-As part of the final stage, I implemented several security controls, including:
+## 🏗️ Architecture
 
-✅ Restricted CORS to the frontend application
-✅ Added HTTP security headers using Helmet
-✅ Implemented API input validation
-✅ Improved API error handling to avoid exposing internal errors
-✅ Enabled Supabase Row Level Security
-✅ Protected environment variables and secrets
-✅ Added Docker health checks and container security considerations
-✅ Reviewed GitHub Actions and CI/CD security
-
-### 🔄 DevOps Workflow
-
-The project follows a complete workflow:
-
-**Code → Git → GitHub → CI/CD → Docker → Deployment → Monitoring → Security**
-
-This project gave me valuable hands-on experience troubleshooting real issues involving **Docker networking, DNS resolution, environment variables, Supabase connectivity, CI/CD failures, CORS configuration and container health checks.**
-
-Most importantly, it helped me understand that DevOps is not only about deploying an application — it's about building a process that is **automated, observable, reliable and secure.**
-
-I'm looking forward to continuing to build more projects and strengthening my skills in **DevOps, Cloud, Networking and Security.** 🚀
-
-#DevOps #Docker #DockerCompose #GitHubActions #CICD #React #NodeJS #ExpressJS #Supabase #Cloud #Render #Linux #CyberSecurity #DevOpsEngineer #CloudEngineering #GitHub #Automation
+```text
+                    ┌─────────────────┐
+                    │     GitHub      │
+                    │  Source Code    │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │ GitHub Actions  │
+                    │   CI/CD Pipeline│
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │     Docker      │
+                    │    Images       │
+                    └────────┬────────┘
+                             │
+                             ▼
+                    ┌─────────────────┐
+                    │     Render      │
+                    │   Deployment    │
+                    └───────┬─────────┘
+                            │
+              ┌─────────────┴─────────────┐
+              ▼                           ▼
+     ┌─────────────────┐         ┌─────────────────┐
+     │ React Frontend  │         │ Node.js Backend │
+     │     Vite        │────────▶│    Express.js   │
+     └─────────────────┘         └────────┬────────┘
+                                          │
+                                          ▼
+                                  ┌─────────────────┐
+                                  │     Supabase    │
+                                  │    PostgreSQL   │
+                                  └─────────────────┘
